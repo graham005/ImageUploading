@@ -1,0 +1,46 @@
+﻿@model ImageUploading.Models.Images
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Images</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <div class="control-label">
+                    <input asp-for="Image" type="file" name="Image" class="custom-file-input" id="Iimage"
+                           onchange="document.getElementById('ImagePrev').src = window.URL.createObjectURL(this.files[0]) " />
+                    <label class="custom-file-label" for="Iimage">Choose file</label>
+                </div>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+               
+                <img id="ImagePrev" src="" alt="Logo Image" width="150"
+                     height="150" style="border: 1px;margin-top:20px; margin-left:120px;" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script>
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selcted").html(fileName);
+    });
+</script>
